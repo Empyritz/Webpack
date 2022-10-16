@@ -1,10 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const CopyPlugin = require('copy-webpack-plugin');
-// const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-// const TerserPlugin = require('terser-webpack-plugin');
 const DotEnv = require('dotenv-webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
 
 module.exports = {
   entry: './src/index.js',
@@ -71,5 +69,14 @@ module.exports = {
     //   ]
     // })
     new DotEnv(),
+    new BundleAnalyzerPlugin(),
   ],
+  devServer: {
+    static:  path.join(__dirname, "./dist"),
+    // watchFiles: path.join(__dirname, "./**"), //observa los cambios en todos nuestros archivos y actualiza el navegador
+    compress: true,
+    historyApiFallback: true,
+    port: 3006,
+    open: true, //Hace que se abra en el navegador
+  },
 }
